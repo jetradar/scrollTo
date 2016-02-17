@@ -6,12 +6,21 @@ var scrollToTop = function (scrollDuration) {
   var cosParameter = scrollHeight / 2;
   var scrollCount = 0;
   var scrollMargin;
+  var scrollPosition;
 
   var scrollInterval = setInterval(function () {
     if (window.pageYOffset != 0) {
       scrollCount = scrollCount + 1;
       scrollMargin = cosParameter - cosParameter * Math.cos(scrollCount * scrollStep);
-      window.scrollTo(0, ( scrollHeight - scrollMargin ));
+
+      if (scrollHeight - scrollMargin > scrollPosition) {
+        clearInterval(scrollInterval);
+        scrollToTop(scrollDuration / scrollCount);
+      }
+
+      scrollPosition = scrollHeight - scrollMargin;
+
+      window.scrollTo(0, ( scrollPosition ));
     } else {
       clearInterval(scrollInterval);
     }
