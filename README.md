@@ -26,7 +26,7 @@ You can now use `scrollToTop` and/or `scrollTo`:
 
 * `scrollToTop` scrolls to the top of the page. Takes one argument for the timeout in miliseconds.
    ```javascript
-   scrollTo(700);
+   scrollToTop(700);
    ```
 
 * `scrollTo` scrolls to any element in the DOM unless the element is already at the `scrollTo` position. 
