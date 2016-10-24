@@ -37,13 +37,21 @@ var scrollToElement = function(element, interval) {
   var cosParameter = scrollHeight / 2;
   var scrollCount = 0;
   var scrollMargin;
+  var previousScrollMargin;
+  var signChanged = false;
 
   var scrollInterval = setInterval(function () {
     // Elelement we want to scroll to below current scroll position
-    if ((window.pageYOffset < offset - GAP || window.pageYOffset > offset) && (document.documentElement.scrollHeight !== window.pageYOffset + window.innerHeight)) {
+    if ((window.pageYOffset < offset - GAP || window.pageYOffset > offset) && !signChanged) {
       scrollCount = scrollCount + 1;
       scrollMargin = cosParameter - cosParameter * Math.cos(scrollCount * scrollStep);
+
+      if (previousScrollMargin) {
+        signChanged = Math.abs(scrollMargin) < Math.abs(previousScrollMargin);
+      }
+
       window.scrollTo(0, initialOffset + scrollMargin);
+      previousScrollMargin = scrollMargin;
     } else {
       clearInterval(scrollInterval);
     }
