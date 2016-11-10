@@ -1,6 +1,6 @@
 {
   "name": "scrollyo",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simply no-dependencies javascript function to smooth scrolling to dom nodes",
   "main": "index.js",
   "scripts": {
@@ -18,6 +18,9 @@
     "noJquery"
   ],
   "author": "a-wart",
+  "contributors": [{
+    "name" : "Holger Schauf"
+  }],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jetradar/scrollTo/issues"
