@@ -27,7 +27,7 @@ You can now use `scrollToTop` and/or `scrollTo`:
 * `scrollToTop` scrolls to the top of the page. Takes one argument for the timeout in miliseconds.
    ```javascript
    var duration = 700; // ms
-   var position = 100: // default: 0
+   var position = 100; // default: 0
    scrollToTop(duration, position);
    ```
 
