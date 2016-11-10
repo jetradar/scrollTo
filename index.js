@@ -1,29 +1,29 @@
 var GAP = 10;
 // [TODO]: DRY
-var scrollToTop = function (scrollDuration) {
+var scrollToTop = function (scrollDuration, position) {
   var scrollHeight = window.pageYOffset;
   var scrollStep = Math.PI / ( scrollDuration / 15 );
   var cosParameter = scrollHeight / 2;
   var scrollCount = 0;
   var scrollMargin;
   var scrollPosition;
-
+  position = position || 0;
+  
   var scrollInterval = setInterval(function () {
-    if (window.pageYOffset != 0) {
-      scrollCount = scrollCount + 1;
-      scrollMargin = cosParameter - cosParameter * Math.cos(scrollCount * scrollStep);
-
-      if (scrollHeight - scrollMargin > scrollPosition) {
-        clearInterval(scrollInterval);
-        scrollToTop(scrollDuration / scrollCount);
-      }
-
-      scrollPosition = scrollHeight - scrollMargin;
-
-      window.scrollTo(0, ( scrollPosition ));
-    } else {
-      clearInterval(scrollInterval);
+    
+    if (window.pageYOffset <= position) {
+        return clearInterval(scrollInterval);
     }
+    
+    scrollCount = scrollCount + 1;
+    scrollMargin = cosParameter - cosParameter * Math.cos(scrollCount * scrollStep);
+
+    if (scrollHeight - scrollMargin > scrollPosition) {
+      clearInterval(scrollInterval);
+      scrollToTop(scrollDuration / scrollCount);
+    }
+
+    scrollPosition = scrollHeight - scrollMargin;
   }, 15);
 };
 
