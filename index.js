@@ -56,7 +56,7 @@ var scrollToElement = function(element, interval, options) {
         signChanged = Math.abs(scrollMargin) < Math.abs(previousScrollMargin);
       }
 
-      window.scrollTo(0, initialOffset + scrollMargin);
+      window.scrollTo(0, initialOffset + scrollMargin - gap);
       previousScrollMargin = scrollMargin;
     } else {
       clearInterval(scrollInterval);
