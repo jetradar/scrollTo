@@ -1,17 +1,18 @@
 var GAP = 10;
 // [TODO]: DRY
-var scrollToTop = function (scrollDuration) {
+var scrollToTop = function(scrollDuration) {
   var scrollHeight = window.pageYOffset;
-  var scrollStep = Math.PI / ( scrollDuration / 15 );
+  var scrollStep = Math.PI / (scrollDuration / 15);
   var cosParameter = scrollHeight / 2;
   var scrollCount = 0;
   var scrollMargin;
   var scrollPosition;
 
-  var scrollInterval = setInterval(function () {
+  var scrollInterval = setInterval(function() {
     if (window.pageYOffset != 0) {
       scrollCount = scrollCount + 1;
-      scrollMargin = cosParameter - cosParameter * Math.cos(scrollCount * scrollStep);
+      scrollMargin =
+        cosParameter - cosParameter * Math.cos(scrollCount * scrollStep);
 
       if (scrollHeight - scrollMargin > scrollPosition) {
         clearInterval(scrollInterval);
@@ -20,31 +21,36 @@ var scrollToTop = function (scrollDuration) {
 
       scrollPosition = scrollHeight - scrollMargin;
 
-      window.scrollTo(0, ( scrollPosition ));
+      window.scrollTo(0, scrollPosition);
     } else {
       clearInterval(scrollInterval);
     }
   }, 15);
 };
 
-var scrollToElement = function(element, interval) {
+var scrollToElement = function(element, interval, options) {
   var offset = getElementOffset(element);
   var initialOffset = window.pageYOffset;
 
   var scrollHeight = offset - initialOffset;
 
-  var scrollStep = Math.PI / ( interval / 15 );
+  var scrollStep = Math.PI / (interval / 15);
   var cosParameter = scrollHeight / 2;
   var scrollCount = 0;
   var scrollMargin;
   var previousScrollMargin;
   var signChanged = false;
+  var gap = options && options.gap ? options.gap : GAP;
 
-  var scrollInterval = setInterval(function () {
+  var scrollInterval = setInterval(function() {
     // Elelement we want to scroll to below current scroll position
-    if ((window.pageYOffset < offset - GAP || window.pageYOffset > offset) && !signChanged) {
+    if (
+      (window.pageYOffset < offset - gap || window.pageYOffset > offset) &&
+      !signChanged
+    ) {
       scrollCount = scrollCount + 1;
-      scrollMargin = cosParameter - cosParameter * Math.cos(scrollCount * scrollStep);
+      scrollMargin =
+        cosParameter - cosParameter * Math.cos(scrollCount * scrollStep);
 
       if (previousScrollMargin) {
         signChanged = Math.abs(scrollMargin) < Math.abs(previousScrollMargin);
@@ -60,9 +66,9 @@ var scrollToElement = function(element, interval) {
 
 var getElementOffset = function(element) {
   return window.pageYOffset + element.getBoundingClientRect().top;
-}
+};
 
 module.exports = {
   scrollToTop: scrollToTop,
   scrollTo: scrollToElement
-}
+};
